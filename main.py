@@ -37,8 +37,12 @@ def move():
   global fPlayerX, fPlayerY, fPlayerA, fElapsedTime
   
   keys = pygame.key.get_pressed()
-  if keys[pygame.K_a]: fPlayerA -= 1.5 * fElapsedTime
-  if keys[pygame.K_d]: fPlayerA += 1.5 * fElapsedTime
+  if keys[pygame.K_a]:
+    fPlayerA -= 1.5 * fElapsedTime
+    drawPicture()
+  if keys[pygame.K_d]:
+    fPlayerA += 1.5 * fElapsedTime
+    drawPicture()
   if keys[pygame.K_w]:
     fPlayerX += sin(fPlayerA) * 5.0 * fElapsedTime
     fPlayerY += cos(fPlayerA) * 5.0 * fElapsedTime
@@ -46,6 +50,8 @@ def move():
     if map.aMap[normalize(fPlayerY, map.nMapHeight), normalize(fPlayerX, map.nMapWidth)] == '#':
       fPlayerX -= sin(fPlayerA) * 5.0 * fElapsedTime
       fPlayerY -= cos(fPlayerA) * 5.0 * fElapsedTime
+
+    drawPicture()
 
 def shadeWall(fDistanceToWall):
   global fDepth
@@ -106,10 +112,10 @@ def drawPicture():
   
   pygame.display.update()
 
-while bRunGame:
-  timeClock()
-  exit()  
-  move()
-  drawPicture()
+if __name__ == '__maine__':
+  while bRunGame:
+    timeClock()
+    exit()  
+    move()
   
-pygame.quit()
+  pygame.quit()
